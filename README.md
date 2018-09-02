@@ -7,7 +7,7 @@
 #### Enable plugin
 
 ```js
-var md = require('markdown-it')({
+var md = require('@gerhobbelt/markdown-it')({
   modifyToken: function (token, env) {
     // see API https://markdown-it.github.io/markdown-it/#Token
     // token will also have an attrObj property added for convenience
@@ -27,7 +27,7 @@ var md = require('markdown-it')({
       break;
     }
   }
-}).use(require('markdown-it-modify-token')); // <-- this use(package_name) is required
+}).use(require('@gerhobbelt/markdown-it-modify-token')); // <-- this use(package_name) is required
 ```
 
 #### Example
@@ -40,7 +40,7 @@ var md = require('markdown-it')({
 with this config
 
 ```js
-var md = require('markdown-it')({
+var md = require('@gerhobbelt/markdown-it')({
   modifyToken: function (token, env) {
     switch (token.type) {
     case 'image': // set all images to 200px width
@@ -51,7 +51,7 @@ var md = require('markdown-it')({
       break;
     }
   }
-}).use(require('markdown-it-modify-token')); // <-- this use(package_name) is required
+}).use(require('@gerhobbelt/markdown-it-modify-token')); // <-- this use(package_name) is required
 ```
 
 Will result in roughly
@@ -62,6 +62,12 @@ Will result in roughly
 ```
 
 Due to the token types we are handling in our switch statement, we can affect both image and link attributes.
+
+### Installing
+
+```bash
+npm i @gerhobbelt/markdown-it-modify-token
+```
 
 ### Testing
 
