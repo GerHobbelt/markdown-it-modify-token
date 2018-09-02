@@ -1,12 +1,12 @@
 'use strict';
 
 var path = require('path');
-var generate = require('markdown-it-testgen');
+var generate = require('@gerhobbelt/markdown-it-testgen');
 var expect = require('chai').expect;
 var fs = require('fs');
 
 describe('markdown-it-modify-token', function() {
-  var md = require('markdown-it')({
+  var md = require('@gerhobbelt/markdown-it')({
     html: true,
     linkify: true,
     typography: true,
