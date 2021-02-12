@@ -1,12 +1,23 @@
-'use strict';
+/* eslint-env mocha, es6 */
 
-var path = require('path');
-var generate = require('@gerhobbelt/markdown-it-testgen');
-var expect = require('chai').expect;
-var fs = require('fs');
+import path from 'path';
+import fs from 'fs';
+import assert from 'assert';
 
-describe('markdown-it-modify-token', function() {
-  var md = require('@gerhobbelt/markdown-it')({
+import markdownit from '@gerhobbelt/markdown-it';
+import generate from '@gerhobbelt/markdown-it-testgen';
+
+import { fileURLToPath } from 'url';
+
+// see https://nodejs.org/docs/latest-v13.x/api/esm.html#esm_no_require_exports_module_exports_filename_dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+import plugin from '../index.js';
+
+
+describe('markdown-it-modify-token', function () {
+  let md = markdownit({
     html: true,
     linkify: true,
     typography: true,
@@ -27,14 +38,14 @@ describe('markdown-it-modify-token', function() {
       // return a new or modified token otherwise it will use previous token
       return token;
     }
-  }).use(require('../'));
+  }).use(plugin);
   generate(path.join(__dirname, 'fixtures/attr-modification.txt'), md);
 
-  it("Passes on env", function (done) {
-    var html = md.render(fs.readFileSync(path.join(__dirname, 'fixtures/env.txt'), 'utf-8'), {
+  it('Passes on env', function (done) {
+    let html = md.render(fs.readFileSync(path.join(__dirname, 'fixtures/env.txt'), 'utf-8'), {
       linkPrefix: 'test/'
     });
-    expect(html).to.equal("<p><a href=\"test/a\" target=\"_blank\">Hello</a></p>\n");
+    assert.strictEqual(html, '<p><a href="test/a" target="_blank">Hello</a></p>\n');
     done();
   });
 });

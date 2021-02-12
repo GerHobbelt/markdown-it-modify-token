@@ -1,8 +1,8 @@
-'use strict';
+
 
 function modifyToken(token, modifyFn, env) {
   // create attrObj for convenient get/set of attributes
-  var attrObj = (token.attrs) ? token.attrs.reduce(function (acc, pair) {
+  let attrObj = (token.attrs) ? token.attrs.reduce(function (acc, pair) {
     acc[pair[0]] = pair[1];
     return acc;
   }, {}) : {};
@@ -16,20 +16,20 @@ function modifyToken(token, modifyFn, env) {
 
 function noop() { }
 
-module.exports = function (md) {
-    md.core.ruler.push(
-        'modify-token',
-        function (state) {
-          var modifyFn = md.options.modifyToken || noop;
-          state.tokens.forEach(function (token) {
-            if (token.children && token.children.length) {
-              token.children.forEach(function (token) {
-                modifyToken(token, modifyFn, state.env);
-              });
-            }
+export default function (md) {
+  md.core.ruler.push(
+    'modify-token',
+    function (state) {
+      let modifyFn = md.options.modifyToken || noop;
+      state.tokens.forEach(function (token) {
+        if (token.children && token.children.length) {
+          token.children.forEach(function (token) {
             modifyToken(token, modifyFn, state.env);
           });
-          return false;
         }
-    );
-};
+        modifyToken(token, modifyFn, state.env);
+      });
+      return false;
+    }
+  );
+}
