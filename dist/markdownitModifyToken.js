@@ -1,4 +1,4 @@
-/*! markdown-it-modify-token 1.0.2-1 https://github.com//GerHobbelt/markdown-it-modify-token @license MIT */
+/*! markdown-it-modify-token 1.0.2-3 https://github.com//GerHobbelt/markdown-it-modify-token @license MIT */
 
 function modifyToken(token, modifyFn, env) {
   // create attrObj for convenient get/set of attributes
